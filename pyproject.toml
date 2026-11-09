@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ethosemiotics"
+# La versión vive en ethosemiotics/__init__.py, igual que en holonmed.
+dynamic = ["version"]
+description = "Definiciones formales de la Filosofía del Empeño: acoplamiento (Φ), ergon, nitidez estética y falso cumplimiento"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "AGPL-3.0-or-later" }
+authors = [{ name = "Alcy Edmundo Torres Guerrero" }]
+keywords = ["semiotics", "peirce", "clinical-decision-support", "ethics"]
+# Sin dependencias de ejecución, a propósito: es el paquete del que
+# dependen holonmed y medsemiotics-db, y no debe arrastrarles nada.
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=8.3", "ruff>=0.7", "mypy>=1.13"]
+
+[tool.setuptools.dynamic]
+version = { attr = "ethosemiotics.__version__" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 90
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.mypy]
+python_version = "3.10"
+files = ["src/ethosemiotics"]
+strict = true
